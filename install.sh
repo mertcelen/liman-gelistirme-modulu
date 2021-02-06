@@ -32,7 +32,7 @@ sudo systemctl enable --now code-server@liman
 sudo systemctl restart code-server@liman
 
 # Install module package.
-URL="https://github.com/mertcelen/liman-gelistirme-modulu/releases/download/latest/liman-gelistirme-modulu.deb"
+URL="https://github.com/mertcelen/liman-gelistirme-modulu/releases/latest/download/liman-gelistirme-modulu.deb"
 MODULE_DEB_PATH="/tmp/liman-gelistirme-modulu.deb"
 if [ ! -f $MODULE_DEB_PATH ]; then
     curl -fL $URL -o $MODULE_DEB_PATH
