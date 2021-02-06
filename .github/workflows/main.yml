@@ -33,6 +33,7 @@ jobs:
           Description: Liman MYS Eklenti Gelistirme Modulu
           Depends: liman
           """ > DEBIAN/control
+          cd ../
           dpkg-deb -Zgzip --build package
       - name: "Uplaod deb file"
         uses: actions/upload-artifact@v2
