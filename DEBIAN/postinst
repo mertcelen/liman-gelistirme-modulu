@@ -1,0 +1,3 @@
+#!/bin/bash
+
+runuser liman -c "php /liman/server/artisan module:add Gelistirme"
