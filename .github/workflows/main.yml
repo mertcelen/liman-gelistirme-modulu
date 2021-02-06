@@ -1,0 +1,41 @@
+name: Liman CI
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Getting Main Liman Repository
+        uses: actions/checkout@v2
+        with:
+          path: package/liman/modules/Gelistirme
+      - name: Build Liman Module Package
+        run: |
+          rm -rf package/liman/modules/Gelistirme/.git
+          mv package/liman/modules/Gelistirme/DEBIAN package/
+          cd package
+          touch DEBIAN/md5sums
+          touch DEBIAN/md5sums
+          touch DEBIAN/control
+
+          find . -type f ! -regex '.*.hg.*' ! -regex '.*?debian-binary.*' ! -regex '.*?DEBIAN.*' -printf '%P ' | xargs md5sum  1>/dev/null 2>/dev/null || true
+
+          chmod 775 DEBIAN/postrm
+          chmod 775 DEBIAN/postinst
+
+          echo """Package: liman-gelistirme-modulu
+          Version: $GITHUB_RUN_NUMBER
+          Installed-Size: 29892
+          Maintainer: Mert CELEN <mcelen94@gmail.com>
+          Section: admin
+          Date : $GITHUB_RUN_NUMBER
+          Architecture: amd64
+          Priority: important
+          Description: Liman MYS Eklenti Gelistirme Modulu
+          Depends: liman
+          """ > DEBIAN/control
+          /home/runner/work/liman-gelistirme-modulu/liman-gelistirme-modulu/package.deb
+      - name: "Uplaod deb file"
+        uses: actions/upload-artifact@v2
+        with:
+          name: deb_package
+          path: /home/runner/work/liman-gelistirme-modulu/liman-gelistirme-modulu/package.deb
