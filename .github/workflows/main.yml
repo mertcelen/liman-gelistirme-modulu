@@ -33,7 +33,7 @@ jobs:
           Description: Liman MYS Eklenti Gelistirme Modulu
           Depends: liman
           """ > DEBIAN/control
-          /home/runner/work/liman-gelistirme-modulu/liman-gelistirme-modulu/package.deb
+          dpkg-deb -Zgzip --build package
       - name: "Uplaod deb file"
         uses: actions/upload-artifact@v2
         with:
